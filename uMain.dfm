@@ -2,7 +2,7 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 579
+  ClientHeight = 525
   ClientWidth = 1128
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -19,7 +19,7 @@ object Form1: TForm1
     Left = 0
     Top = 0
     Width = 1128
-    Height = 579
+    Height = 525
     Align = alClient
     Color = clWindow
     ParentBackground = False
@@ -28,12 +28,12 @@ object Form1: TForm1
       Left = 1
       Top = 25
       Width = 1126
-      Height = 553
-      ActivePage = TabSheet1
+      Height = 499
+      ActivePage = tsGeneral
       Align = alClient
       TabOrder = 0
-      object TabSheet1: TTabSheet
-        Caption = 'TabSheet1'
+      object tsGeneral: TTabSheet
+        Caption = 'General'
         object gbSelectStatements: TGroupBox
           Left = 3
           Top = 3
@@ -399,6 +399,88 @@ object Form1: TForm1
           Version = 1
         end
       end
+      object tsOverview: TTabSheet
+        Caption = 'Overview'
+        ImageIndex = 1
+        ExplicitLeft = 0
+        ExplicitTop = 0
+        ExplicitWidth = 0
+        ExplicitHeight = 0
+        object cxGridErrors: TcxGrid
+          Left = 0
+          Top = 0
+          Width = 1118
+          Height = 200
+          Align = alTop
+          TabOrder = 0
+          object cxGridErrorsDBTableView1: TcxGridDBTableView
+            NavigatorButtons.ConfirmDelete = False
+            DataController.Summary.DefaultGroupSummaryItems = <>
+            DataController.Summary.FooterSummaryItems = <>
+            DataController.Summary.SummaryGroups = <>
+          end
+          object cxGridErrorsLevel1: TcxGridLevel
+            GridView = cxGridErrorsDBTableView1
+          end
+        end
+        object cxGridIndexes: TcxGrid
+          Left = 0
+          Top = 200
+          Width = 1118
+          Height = 200
+          Align = alTop
+          TabOrder = 1
+          object cxGridIndexesDBTableView1: TcxGridDBTableView
+            NavigatorButtons.ConfirmDelete = False
+            DataController.Summary.DefaultGroupSummaryItems = <>
+            DataController.Summary.FooterSummaryItems = <>
+            DataController.Summary.SummaryGroups = <>
+          end
+          object cxGridIndexesLevel1: TcxGridLevel
+            GridView = cxGridIndexesDBTableView1
+          end
+        end
+      end
+      object tsSlow: TTabSheet
+        Caption = 'Slow queries'
+        ImageIndex = 2
+        object cxGridSlow: TcxGrid
+          Left = 0
+          Top = 0
+          Width = 1118
+          Height = 471
+          Align = alClient
+          TabOrder = 0
+          object tvSlow: TcxGridDBTableView
+            OnDblClick = tvSlowDblClick
+            NavigatorButtons.ConfirmDelete = False
+            DataController.Summary.DefaultGroupSummaryItems = <>
+            DataController.Summary.FooterSummaryItems = <>
+            DataController.Summary.SummaryGroups = <>
+            object Rank: TcxGridDBColumn
+            end
+            object TimeMs: TcxGridDBColumn
+            end
+            object SQLType: TcxGridDBColumn
+            end
+            object Rows: TcxGridDBColumn
+            end
+            object PlanNat: TcxGridDBColumn
+            end
+            object SQLText: TcxGridDBColumn
+            end
+            object Plan: TcxGridDBColumn
+            end
+            object Params: TcxGridDBColumn
+            end
+            object Perf: TcxGridDBColumn
+            end
+          end
+          object cxGridSlowLevel1: TcxGridLevel
+            GridView = tvSlow
+          end
+        end
+      end
     end
     object pTop: TPanel
       Left = 1
@@ -431,7 +513,7 @@ object Form1: TForm1
     end
   end
   object odMain: TOpenDialog
-    Left = 120
+    Left = 128
     Top = 432
   end
 end

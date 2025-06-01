@@ -8,7 +8,9 @@ uses
   cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
   dxSkinsCore, dxSkinsDefaultPainters, cxStyles, cxEdit,
   cxInplaceContainer, cxVGrid,
-  Generics.Collections;
+  Generics.Collections, dxSkinscxPCPainter, cxCustomData, cxFilter, cxData,
+  cxDataStorage, DB, cxDBData, cxGridLevel, cxClasses, cxGridCustomView,
+  cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxGrid, DBClient;
 
 type
   TForm1 = class(TForm)
@@ -26,7 +28,6 @@ type
     edSelectMaxTime: TEdit;
     lbSelectAvgTime: TLabel;
     edSelectAvgTime: TEdit;
-    odMain: TOpenDialog;
     gbInsertStatements: TGroupBox;
     Label2: TLabel;
     Label3: TLabel;
@@ -55,7 +56,7 @@ type
     edDeleteAvgTime: TEdit;
     lbInsertCount: TLabel;
     PageControl1: TPageControl;
-    TabSheet1: TTabSheet;
+    tsGeneral: TTabSheet;
     pTop: TPanel;
     lbSt1RecordCount: TLabel;
     edSt1RecordCount: TEdit;
@@ -69,13 +70,43 @@ type
     cxVerticalGrid1: TcxVerticalGrid;
     cxVerticalGrid2: TcxVerticalGrid;
     cxVerticalGrid3: TcxVerticalGrid;
+    tsOverview: TTabSheet;
+    tsSlow: TTabSheet;
+    cxGridErrorsDBTableView1: TcxGridDBTableView;
+    cxGridErrorsLevel1: TcxGridLevel;
+    cxGridErrors: TcxGrid;
+    cxGridIndexesDBTableView1: TcxGridDBTableView;
+    cxGridIndexesLevel1: TcxGridLevel;
+    cxGridIndexes: TcxGrid;
+    tvSlow: TcxGridDBTableView;
+    cxGridSlowLevel1: TcxGridLevel;
+    cxGridSlow: TcxGrid;
+    Rank: TcxGridDBColumn;
+    TimeMs: TcxGridDBColumn;
+    SQLType: TcxGridDBColumn;
+    Rows: TcxGridDBColumn;
+    PlanNat: TcxGridDBColumn;
+    SQLText: TcxGridDBColumn;
+    odMain: TOpenDialog;
+    Plan: TcxGridDBColumn;
+    Params: TcxGridDBColumn;
+    Perf: TcxGridDBColumn;
     procedure miOpenClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure bGetStatisticsClick(Sender: TObject);
+    procedure tvSlowDblClick(Sender: TObject);
   private
     FFileName: string;
     FTraceLogParser: TTraceLogParser;
+    FSlowData: TClientDataSet;
+    FSlowDS: TDataSource;
+    procedure InitSlowDataset;
+    procedure FillSlowGrid;
     procedure ShowStatistics;
+      procedure TimeMsGetDisplayText(
+    Sender: TcxCustomGridTableItem;
+    ARecord: TcxCustomGridRecord;
+    var AText: string);
   end;
 
 var
@@ -83,12 +114,62 @@ var
 
 implementation
 
-uses FuncTrace, uProgressDlg;
+uses FuncTrace, uProgressDlg, uSlowDetailDlg;
 {$R *.dfm}
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
   FTraceLogParser := TTraceLogParser.Create;
+  InitSlowDataset;
+end;
+
+procedure TForm1.InitSlowDataset;
+begin
+  FSlowData := TClientDataSet.Create(Self);
+  with FSlowData.FieldDefs do
+  begin
+    Add('Rank', ftInteger);
+    Add('TimeMs', ftFloat);
+    Add('SQLType', ftString, 10);
+    Add('Rows', ftLargeint);
+    Add('PlanNat', ftBoolean);
+    Add('SQLText', ftWideMemo);
+    Add('PlanLine' , ftWideMemo);
+    Add('ParamText', ftWideMemo);
+    Add('PerfText' , ftWideMemo);
+  end;
+  FSlowData.CreateDataSet;
+
+  FSlowDS := TDataSource.Create(Self);
+  FSlowDS.DataSet := FSlowData;
+  tvSlow.DataController.DataSource := FSlowDS;
+
+  // прив’язуємо поля до колонок (назви колонок такі, як у DFM)
+  Rank.DataBinding.FieldName := 'Rank';
+  TimeMs.DataBinding.FieldName := 'TimeMs';
+  TimeMs.OnGetDisplayText      := TimeMsGetDisplayText;
+  SQLType.DataBinding.FieldName := 'SQLType';
+  Rows.DataBinding.FieldName := 'Rows';
+  PlanNat.DataBinding.FieldName := 'PlanNat';
+  SQLText.DataBinding.FieldName := 'SQLText';
+  Plan.DataBinding.FieldName   := 'PlanLine';
+  Params.DataBinding.FieldName := 'ParamText';
+  Perf.DataBinding.FieldName   := 'PerfText';
+end;
+
+procedure TForm1.TimeMsGetDisplayText(Sender: TcxCustomGridTableItem;
+  ARecord: TcxCustomGridRecord; var AText: string);
+var
+  Ms : Int64;
+begin
+  // Беремо числове значення без конверсій у текст
+  Ms := Round(VarAsType(ARecord.Values[Sender.Index], varDouble));  // мілісекунди
+
+  // Конвертуємо у hh:mm:ss
+  AText := Format('%.2d:%.2d:%.2d',
+                  [ Ms div 3600000,                // години
+                    (Ms div 60000) mod 60,         // хвилини
+                    (Ms div 1000)  mod 60 ]);      // секунди
 end;
 
 procedure TForm1.miOpenClick(Sender: TObject);
@@ -214,6 +295,55 @@ begin
 
   FillArrayToVGrid(cxVerticalGrid3, TopArr,
     Format('Топ-%d індексів', [Length(TopArr)]));
+  FillSlowGrid;
+end;
+
+procedure TForm1.tvSlowDblClick(Sender: TObject);
+var
+  D  : TfSlowDetailDlg;
+  SD : TSlowStmtData;
+begin
+  // Заповнюємо структуру з поточного запису ґріда
+  SD.SQLText   := FSlowData.FieldByName('SQLText').AsString;
+  SD.PlanText  := FSlowData.FieldByName('PlanLine').AsString;    // ← додасте поле
+  SD.ParamText := FSlowData.FieldByName('ParamText').AsString;   // ← додасте поле
+  SD.PerfText  := FSlowData.FieldByName('PerfText').AsString;    // ← додасте поле
+
+  D := TfSlowDetailDlg.Create(Self);
+  try
+    D.LoadFromSlowStmt(SD);
+    D.ShowModal;
+  finally
+    D.Free;
+  end;
+end;
+
+procedure TForm1.FillSlowGrid;
+var
+  SlowArr : TSlowArray;
+  i       : Integer;
+begin
+  FSlowData.DisableControls;
+  try
+    FSlowData.EmptyDataSet;
+    SlowArr := FTraceLogParser.TopSlow(500);      // показуємо топ-100
+    for i := Low(SlowArr) to High(SlowArr) do
+    begin
+      FSlowData.Append;
+      FSlowData.FieldByName('Rank').AsInteger    := i + 1;
+      FSlowData.FieldByName('TimeMs').AsFloat    := SlowArr[i].TimeMs;
+      FSlowData.FieldByName('SQLType').AsString  := SlowArr[i].SQLType;
+      FSlowData.FieldByName('Rows').AsLargeInt   := SlowArr[i].Rows;
+      FSlowData.FieldByName('PlanNat').AsBoolean := SlowArr[i].PlanNat;
+      FSlowData.FieldByName('SQLText').AsString  := SlowArr[i].SQLText;
+      FSlowData.FieldByName('PlanLine').AsString := SlowArr[i].PlanText;
+      FSlowData.FieldByName('ParamText').AsString:= SlowArr[i].ParamText;
+      FSlowData.FieldByName('PerfText').AsString := SlowArr[i].PerfText;
+      FSlowData.Post;
+    end;
+  finally
+    FSlowData.EnableControls;
+  end;
 end;
 
 end.

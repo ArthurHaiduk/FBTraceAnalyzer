@@ -5,7 +5,8 @@ uses
   uMain in 'uMain.pas' {Form1},
   TraceLogParser in 'Functions\TraceLogParser.pas',
   FuncTrace in 'Functions\FuncTrace.pas',
-  uProgressDlg in 'uProgressDlg.pas' {fProgressDlg};
+  uProgressDlg in 'uProgressDlg.pas' {fProgressDlg},
+  uSlowDetailDlg in 'uSlowDetailDlg.pas' {fSlowDetailDlg};
 
 {$R *.res}
 
