@@ -2,8 +2,8 @@ object fSlowDetailDlg: TfSlowDetailDlg
   Left = 0
   Top = 0
   Caption = 'fSlowDetailDlg'
-  ClientHeight = 299
-  ClientWidth = 635
+  ClientHeight = 403
+  ClientWidth = 906
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,104 +11,104 @@ object fSlowDetailDlg: TfSlowDetailDlg
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poMainFormCenter
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
   PixelsPerInch = 96
   TextHeight = 13
   object pnlBottom: TPanel
     Left = 0
-    Top = 258
-    Width = 635
-    Height = 41
+    Top = 376
+    Width = 906
+    Height = 27
     Align = alBottom
     TabOrder = 0
-    ExplicitLeft = 264
-    ExplicitTop = 192
-    ExplicitWidth = 185
     object btnClose: TButton
-      Left = 552
-      Top = 8
-      Width = 75
-      Height = 25
-      Caption = 'btnClose'
+      AlignWithMargins = True
+      Left = 816
+      Top = 4
+      Width = 86
+      Height = 19
+      Align = alRight
+      Caption = 'Close'
       TabOrder = 0
+      OnClick = btnCloseClick
     end
   end
   object PageControl1: TPageControl
     Left = 0
     Top = 0
-    Width = 635
-    Height = 258
+    Width = 906
+    Height = 376
     ActivePage = tsSQL
     Align = alClient
     TabOrder = 1
     object tsSQL: TTabSheet
-      Caption = 'tsSQL'
+      Caption = 'SQL'
       object MemoSQL: TMemo
         Left = 0
         Top = 0
-        Width = 627
-        Height = 230
+        Width = 898
+        Height = 348
         Align = alClient
         Lines.Strings = (
           'MemoSQL')
+        ScrollBars = ssBoth
         TabOrder = 0
-        ExplicitLeft = 168
-        ExplicitTop = 72
-        ExplicitWidth = 185
-        ExplicitHeight = 89
       end
     end
     object tsPlan: TTabSheet
-      Caption = 'tsPlan'
+      Caption = 'Plan'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 331
       object MemoPlan: TMemo
         Left = 0
         Top = 0
-        Width = 627
-        Height = 230
+        Width = 898
+        Height = 348
         Align = alClient
         Lines.Strings = (
           'Memo1')
         TabOrder = 0
-        ExplicitLeft = 168
-        ExplicitTop = 72
-        ExplicitWidth = 185
-        ExplicitHeight = 89
       end
     end
     object tsParams: TTabSheet
-      Caption = 'tsParams'
+      Caption = 'Input Parameters'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 331
       object MemoParams: TMemo
         Left = 0
         Top = 0
-        Width = 627
-        Height = 230
+        Width = 898
+        Height = 348
         Align = alClient
         Lines.Strings = (
           'Memo1')
         TabOrder = 0
-        ExplicitLeft = 168
-        ExplicitTop = 72
-        ExplicitWidth = 185
-        ExplicitHeight = 89
       end
     end
     object TsPerf: TTabSheet
-      Caption = 'TsPerf'
+      Caption = 'Performance'
       ImageIndex = 3
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 331
       object MemoPerf: TMemo
         Left = 0
         Top = 0
-        Width = 627
-        Height = 230
+        Width = 898
+        Height = 348
         Align = alClient
         Lines.Strings = (
           'Memo1')
         TabOrder = 0
-        ExplicitLeft = 168
-        ExplicitTop = 72
-        ExplicitWidth = 185
-        ExplicitHeight = 89
       end
     end
   end

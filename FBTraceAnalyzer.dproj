@@ -39,6 +39,7 @@
 			<DCC_DebugInformation>false</DCC_DebugInformation>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Cfg_2)'!=''">
+			<DCC_MapFile>3</DCC_MapFile>
 			<DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
 		</PropertyGroup>
 		<ItemGroup>
@@ -55,6 +56,14 @@
 			</DCCReference>
 			<DCCReference Include="uSlowDetailDlg.pas">
 				<Form>fSlowDetailDlg</Form>
+			</DCCReference>
+			<DCCReference Include="Interfaces\ITraceLogParser.pas"/>
+			<DCCReference Include="Functions\uTraceContracts.pas"/>
+			<DCCReference Include="Functions\uTraceCache.pas"/>
+			<DCCReference Include="Functions\uGutterHook.pas"/>
+			<DCCReference Include="Frames\uStatCard.pas">
+				<Form>StatCard</Form>
+				<DesignClass>TFrame</DesignClass>
 			</DCCReference>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>

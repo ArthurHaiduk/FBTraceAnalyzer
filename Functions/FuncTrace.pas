@@ -4,10 +4,7 @@ interface
 
 uses
   SysUtils, Classes, cxVGrid, cxClasses, cxEdit, cxVariants, cxDataStorage,
-  Generics.Collections, Generics.Defaults;
-
-type
-  TStringArray = array of string;
+  Generics.Collections, Generics.Defaults, ITraceLogParser;
 
 function FormatTimeMsToHMS(timeMs: Int64): string;
 

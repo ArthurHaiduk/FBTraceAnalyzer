@@ -1,519 +1,564 @@
 object Form1: TForm1
   Left = 0
   Top = 0
-  Caption = 'Form1'
-  ClientHeight = 525
-  ClientWidth = 1128
+  BorderStyle = bsNone
+  Caption = 'Firebird Trace Analyzer'
+  ClientHeight = 838
+  ClientWidth = 1017
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  Menu = mmMain
   OldCreateOrder = False
+  Position = poScreenCenter
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnResize = FormResize
   PixelsPerInch = 96
   TextHeight = 13
   object pMain: TPanel
     Left = 0
-    Top = 0
-    Width = 1128
-    Height = 525
+    Top = 52
+    Width = 1017
+    Height = 786
     Align = alClient
-    Color = clWindow
+    Color = cl3DLight
     ParentBackground = False
     TabOrder = 0
-    object PageControl1: TPageControl
+    object sbStatus: TStatusBar
       Left = 1
-      Top = 25
-      Width = 1126
-      Height = 499
-      ActivePage = tsGeneral
-      Align = alClient
-      TabOrder = 0
-      object tsGeneral: TTabSheet
-        Caption = 'General'
-        object gbSelectStatements: TGroupBox
-          Left = 3
-          Top = 3
-          Width = 241
-          Height = 130
-          Caption = 'Select statements'
-          TabOrder = 0
-          object lbSelectCount: TLabel
-            Left = 16
-            Top = 24
-            Width = 29
-            Height = 13
-            Caption = 'Count'
-          end
-          object lbSelectTotalTime: TLabel
-            Left = 16
-            Top = 51
-            Width = 47
-            Height = 13
-            Caption = 'Total time'
-          end
-          object lbSelectMaxTime: TLabel
-            Left = 16
-            Top = 78
-            Width = 43
-            Height = 13
-            Caption = 'Max time'
-          end
-          object lbSelectAvgTime: TLabel
-            Left = 16
-            Top = 105
-            Width = 42
-            Height = 13
-            Caption = 'Avg time'
-          end
-          object edSelectCount: TEdit
-            Left = 112
-            Top = 21
-            Width = 121
-            Height = 21
-            ReadOnly = True
-            TabOrder = 0
-          end
-          object edSelectTotalTime: TEdit
-            Left = 112
-            Top = 48
-            Width = 121
-            Height = 21
-            ReadOnly = True
-            TabOrder = 1
-          end
-          object edSelectMaxTime: TEdit
-            Left = 112
-            Top = 75
-            Width = 121
-            Height = 21
-            ReadOnly = True
-            TabOrder = 2
-          end
-          object edSelectAvgTime: TEdit
-            Left = 112
-            Top = 102
-            Width = 121
-            Height = 21
-            ReadOnly = True
-            TabOrder = 3
-          end
+      Top = 766
+      Width = 1015
+      Height = 19
+      Panels = <>
+    end
+    object cxGridSlow: TcxGrid
+      Left = 393
+      Top = 72
+      Width = 383
+      Height = 321
+      TabOrder = 1
+      object tvSlow: TcxGridDBTableView
+        OnDblClick = tvSlowDblClick
+        NavigatorButtons.ConfirmDelete = False
+        DataController.Summary.DefaultGroupSummaryItems = <>
+        DataController.Summary.FooterSummaryItems = <>
+        DataController.Summary.SummaryGroups = <>
+        object Rank: TcxGridDBColumn
         end
-        object gbUpdateStatements: TGroupBox
-          Left = 497
-          Top = 3
-          Width = 241
-          Height = 130
-          Caption = 'Update statements'
-          TabOrder = 1
-          object Label5: TLabel
-            Left = 16
-            Top = 24
-            Width = 29
-            Height = 13
-            Caption = 'Count'
-          end
-          object Label6: TLabel
-            Left = 16
-            Top = 51
-            Width = 47
-            Height = 13
-            Caption = 'Total time'
-          end
-          object Label7: TLabel
-            Left = 16
-            Top = 78
-            Width = 43
-            Height = 13
-            Caption = 'Max time'
-          end
-          object Label8: TLabel
-            Left = 16
-            Top = 105
-            Width = 42
-            Height = 13
-            Caption = 'Avg time'
-          end
-          object edUpdateCount: TEdit
-            Left = 112
-            Top = 21
-            Width = 121
-            Height = 21
-            ReadOnly = True
-            TabOrder = 0
-          end
-          object edUpdateTotalTime: TEdit
-            Left = 112
-            Top = 48
-            Width = 121
-            Height = 21
-            ReadOnly = True
-            TabOrder = 1
-          end
-          object edUpdateMaxTime: TEdit
-            Left = 112
-            Top = 75
-            Width = 121
-            Height = 21
-            ReadOnly = True
-            TabOrder = 2
-          end
-          object edUpdateAvgTime: TEdit
-            Left = 112
-            Top = 102
-            Width = 121
-            Height = 21
-            ReadOnly = True
-            TabOrder = 3
-          end
+        object TimeMs: TcxGridDBColumn
         end
-        object gbInsertStatements: TGroupBox
-          Left = 250
-          Top = 3
-          Width = 241
-          Height = 130
-          Caption = 'Insert statements'
-          TabOrder = 2
-          object lbInsertCount: TLabel
-            Left = 16
-            Top = 24
-            Width = 29
-            Height = 13
-            Caption = 'Count'
-          end
-          object Label2: TLabel
-            Left = 16
-            Top = 51
-            Width = 47
-            Height = 13
-            Caption = 'Total time'
-          end
-          object Label3: TLabel
-            Left = 16
-            Top = 78
-            Width = 43
-            Height = 13
-            Caption = 'Max time'
-          end
-          object Label4: TLabel
-            Left = 16
-            Top = 105
-            Width = 42
-            Height = 13
-            Caption = 'Avg time'
-          end
-          object edInsertCount: TEdit
-            Left = 112
-            Top = 21
-            Width = 121
-            Height = 21
-            ReadOnly = True
-            TabOrder = 0
-          end
-          object edInsertTotalTime: TEdit
-            Left = 112
-            Top = 48
-            Width = 121
-            Height = 21
-            ReadOnly = True
-            TabOrder = 1
-          end
-          object edInsertMaxTime: TEdit
-            Left = 112
-            Top = 75
-            Width = 121
-            Height = 21
-            ReadOnly = True
-            TabOrder = 2
-          end
-          object edInsertAvgTime: TEdit
-            Left = 112
-            Top = 102
-            Width = 121
-            Height = 21
-            ReadOnly = True
-            TabOrder = 3
-          end
+        object SQLType: TcxGridDBColumn
         end
-        object gbDeleteStatements: TGroupBox
-          Left = 744
-          Top = 3
-          Width = 241
-          Height = 130
-          Caption = 'Delete statements'
-          TabOrder = 3
-          object Label9: TLabel
-            Left = 16
-            Top = 24
-            Width = 29
-            Height = 13
-            Caption = 'Count'
-          end
-          object Label10: TLabel
-            Left = 16
-            Top = 51
-            Width = 47
-            Height = 13
-            Caption = 'Total time'
-          end
-          object Label11: TLabel
-            Left = 16
-            Top = 78
-            Width = 43
-            Height = 13
-            Caption = 'Max time'
-          end
-          object Label12: TLabel
-            Left = 16
-            Top = 105
-            Width = 42
-            Height = 13
-            Caption = 'Avg time'
-          end
-          object edDeleteCount: TEdit
-            Left = 112
-            Top = 21
-            Width = 121
-            Height = 21
-            ReadOnly = True
-            TabOrder = 0
-          end
-          object edDeleteTotalTime: TEdit
-            Left = 112
-            Top = 48
-            Width = 121
-            Height = 21
-            ReadOnly = True
-            TabOrder = 1
-          end
-          object edDeleteMaxTime: TEdit
-            Left = 112
-            Top = 75
-            Width = 121
-            Height = 21
-            ReadOnly = True
-            TabOrder = 2
-          end
-          object edDeleteAvgTime: TEdit
-            Left = 112
-            Top = 102
-            Width = 121
-            Height = 21
-            ReadOnly = True
-            TabOrder = 3
-          end
+        object Rows: TcxGridDBColumn
         end
-        object gbStats: TGroupBox
-          Left = 3
-          Top = 132
-          Width = 982
-          Height = 53
-          Caption = 'Statistics count'
-          TabOrder = 4
-          object lbSt1RollbackCount: TLabel
-            Left = 757
-            Top = 24
-            Width = 69
-            Height = 13
-            Caption = 'Rollback count'
-          end
-          object lbSt1CommitCount: TLabel
-            Left = 510
-            Top = 24
-            Width = 65
-            Height = 13
-            Caption = 'Commit count'
-          end
-          object lbSt1ErrorCount: TLabel
-            Left = 263
-            Top = 24
-            Width = 54
-            Height = 13
-            Caption = 'Error count'
-          end
-          object lbSt1RecordCount: TLabel
-            Left = 16
-            Top = 24
-            Width = 64
-            Height = 13
-            Caption = 'Record count'
-          end
-          object edSt1ErrorCount: TEdit
-            Left = 359
-            Top = 21
-            Width = 121
-            Height = 21
-            ReadOnly = True
-            TabOrder = 0
-          end
-          object edSt1CommitCount: TEdit
-            Left = 606
-            Top = 21
-            Width = 121
-            Height = 21
-            ReadOnly = True
-            TabOrder = 1
-          end
-          object edSt1RollbackCount: TEdit
-            Left = 853
-            Top = 21
-            Width = 121
-            Height = 21
-            ReadOnly = True
-            TabOrder = 2
-          end
-          object edSt1RecordCount: TEdit
-            Left = 112
-            Top = 21
-            Width = 121
-            Height = 21
-            ReadOnly = True
-            TabOrder = 3
-          end
+        object PlanNat: TcxGridDBColumn
         end
-        object cxVerticalGrid1: TcxVerticalGrid
-          Left = 3
-          Top = 191
-          Width = 233
-          Height = 200
-          TabOrder = 5
-          Version = 1
+        object SQLText: TcxGridDBColumn
         end
-        object cxVerticalGrid2: TcxVerticalGrid
-          Left = 266
-          Top = 191
-          Width = 247
-          Height = 200
-          TabOrder = 6
-          Version = 1
+        object Plan: TcxGridDBColumn
         end
-        object cxVerticalGrid3: TcxVerticalGrid
-          Left = 555
-          Top = 191
-          Width = 247
-          Height = 200
-          TabOrder = 7
-          Version = 1
+        object Params: TcxGridDBColumn
+        end
+        object Perf: TcxGridDBColumn
         end
       end
-      object tsOverview: TTabSheet
-        Caption = 'Overview'
-        ImageIndex = 1
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
-        object cxGridErrors: TcxGrid
-          Left = 0
-          Top = 0
-          Width = 1118
-          Height = 200
-          Align = alTop
-          TabOrder = 0
-          object cxGridErrorsDBTableView1: TcxGridDBTableView
-            NavigatorButtons.ConfirmDelete = False
-            DataController.Summary.DefaultGroupSummaryItems = <>
-            DataController.Summary.FooterSummaryItems = <>
-            DataController.Summary.SummaryGroups = <>
-          end
-          object cxGridErrorsLevel1: TcxGridLevel
-            GridView = cxGridErrorsDBTableView1
-          end
-        end
-        object cxGridIndexes: TcxGrid
-          Left = 0
-          Top = 200
-          Width = 1118
-          Height = 200
-          Align = alTop
-          TabOrder = 1
-          object cxGridIndexesDBTableView1: TcxGridDBTableView
-            NavigatorButtons.ConfirmDelete = False
-            DataController.Summary.DefaultGroupSummaryItems = <>
-            DataController.Summary.FooterSummaryItems = <>
-            DataController.Summary.SummaryGroups = <>
-          end
-          object cxGridIndexesLevel1: TcxGridLevel
-            GridView = cxGridIndexesDBTableView1
-          end
-        end
-      end
-      object tsSlow: TTabSheet
-        Caption = 'Slow queries'
-        ImageIndex = 2
-        object cxGridSlow: TcxGrid
-          Left = 0
-          Top = 0
-          Width = 1118
-          Height = 471
-          Align = alClient
-          TabOrder = 0
-          object tvSlow: TcxGridDBTableView
-            OnDblClick = tvSlowDblClick
-            NavigatorButtons.ConfirmDelete = False
-            DataController.Summary.DefaultGroupSummaryItems = <>
-            DataController.Summary.FooterSummaryItems = <>
-            DataController.Summary.SummaryGroups = <>
-            object Rank: TcxGridDBColumn
-            end
-            object TimeMs: TcxGridDBColumn
-            end
-            object SQLType: TcxGridDBColumn
-            end
-            object Rows: TcxGridDBColumn
-            end
-            object PlanNat: TcxGridDBColumn
-            end
-            object SQLText: TcxGridDBColumn
-            end
-            object Plan: TcxGridDBColumn
-            end
-            object Params: TcxGridDBColumn
-            end
-            object Perf: TcxGridDBColumn
-            end
-          end
-          object cxGridSlowLevel1: TcxGridLevel
-            GridView = tvSlow
-          end
-        end
+      object cxGridSlowLevel1: TcxGridLevel
+        GridView = tvSlow
       end
     end
-    object pTop: TPanel
+    object pCards: TPanel
       Left = 1
       Top = 1
-      Width = 1126
-      Height = 24
+      Width = 1015
+      Height = 89
       Align = alTop
-      TabOrder = 1
-      object bGetStatistics: TButton
-        Left = 1
-        Top = 1
-        Width = 1124
-        Height = 22
-        Align = alClient
-        Caption = 'Get statistics'
+      BevelOuter = bvNone
+      Caption = 'pCards'
+      TabOrder = 2
+    end
+    object cxVerticalGrid1: TcxVerticalGrid
+      Left = 15
+      Top = 443
+      Width = 480
+      Height = 200
+      OptionsView.RowHeaderWidth = 323
+      TabOrder = 3
+      OnDblClick = cxVerticalGrid1DblClick
+      Version = 1
+    end
+    object cxVerticalGrid2: TcxVerticalGrid
+      Left = 525
+      Top = 443
+      Width = 472
+      Height = 200
+      OptionsView.RowHeaderWidth = 169
+      TabOrder = 4
+      Version = 1
+    end
+    object gbStats: TGroupBox
+      Left = 15
+      Top = 384
+      Width = 982
+      Height = 53
+      Caption = 'Statistics count'
+      TabOrder = 5
+      object lbSt1RollbackCount: TLabel
+        Left = 757
+        Top = 24
+        Width = 69
+        Height = 13
+        Caption = 'Rollback count'
+      end
+      object lbSt1CommitCount: TLabel
+        Left = 510
+        Top = 24
+        Width = 65
+        Height = 13
+        Caption = 'Commit count'
+      end
+      object lbSt1ErrorCount: TLabel
+        Left = 263
+        Top = 24
+        Width = 54
+        Height = 13
+        Caption = 'Error count'
+      end
+      object lbSt1RecordCount: TLabel
+        Left = 16
+        Top = 24
+        Width = 64
+        Height = 13
+        Caption = 'Record count'
+      end
+      object edSt1ErrorCount: TEdit
+        Left = 359
+        Top = 21
+        Width = 121
+        Height = 21
+        ReadOnly = True
         TabOrder = 0
-        OnClick = bGetStatisticsClick
+      end
+      object edSt1CommitCount: TEdit
+        Left = 606
+        Top = 21
+        Width = 121
+        Height = 21
+        ReadOnly = True
+        TabOrder = 1
+      end
+      object edSt1RollbackCount: TEdit
+        Left = 853
+        Top = 21
+        Width = 121
+        Height = 21
+        ReadOnly = True
+        TabOrder = 2
+      end
+      object edSt1RecordCount: TEdit
+        Left = 112
+        Top = 21
+        Width = 121
+        Height = 21
+        ReadOnly = True
+        TabOrder = 3
       end
     end
   end
-  object mmMain: TMainMenu
-    Left = 64
-    Top = 432
-    object miFile: TMenuItem
-      Caption = 'File'
-      object miOpen: TMenuItem
-        Caption = 'Open'
-        OnClick = miOpenClick
+  object pHeader: TPanel
+    Left = 0
+    Top = 0
+    Width = 1017
+    Height = 52
+    Align = alTop
+    BevelOuter = bvNone
+    Color = 4269824
+    ParentBackground = False
+    TabOrder = 1
+    object Image1: TImage
+      AlignWithMargins = True
+      Left = 3
+      Top = 3
+      Width = 46
+      Height = 46
+      Align = alLeft
+      Picture.Data = {
+        0B54504E474772617068696346210000424D4621000000000000360000002800
+        00002E0000002E00000001002000000000001021000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        000000000000000000000000000000000000000000013F3F0004000000000000
+        0000000000005534002752340266513303A2513302CF513203EC503303FD5033
+        03FF503303FF503303FD503303ED503302D1523303A453330268503700290000
+        000000000000000000003F3F0004000000010000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000005555000300000000000000005538001252340266513402BE5133
+        03F4543503FF543603FF523503FF513403FF503303FF503303FF503303FF5033
+        03FF513403FF523503FF543603FF543503FF503303F6513302C15334026B5530
+        0015000000000000000055550003000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000001555500030000
+        00004F2F00105234027E513303E7563703FF543603FF513303FF4F3303FD4F32
+        03FC4F3303FD503303FE503303FF503303FF503303FF503303FF503303FE4F33
+        03FD4F3203FC4F3203FD513303FF543503FF563703FF513403EA513401834C33
+        0014000000007F7F000200000001000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        000000000000000000007F000002000000000000000050330259523403DF5637
+        03FF523403FF4F3203FC4F3203FC503303FE503303FF503303FF503303FF5033
+        03FF503303FF503303FF503303FF503303FF503303FF503303FF503303FF5033
+        03FF503303FE4F3203FC503203FB513403FF563703FF523403E34F3202600000
+        0000000000007F00000200000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000005555
+        0003000000003F2A000C513403A0553603FF523403FF503203FB503303FE5033
+        03FF503303FF503303FF503303FF503303FF503303FF503303FF503303FF5033
+        03FF503303FF503303FF503303FF503303FF503303FF503303FF503303FF5033
+        03FF503303FF503303FE503203FB523403FF563603FF513303A84F2F00100000
+        0000555500030000000000000000000000000000000000000000000000000000
+        00000000000000000000000000000000000055550003000000004F2F00205233
+        02CE563703FF503203FB4F3303FD503303FF503303FF503303FF503303FF5033
+        03FF503303FF503303FF503303FF503303FF503303FF503303FF503303FF5033
+        03FF503303FF503303FF503303FF503303FF503303FF503303FF503303FF5033
+        03FF503303FF4F3303FE503203FB563703FF523402D54E2D0027000000005555
+        0003000000000000000000000000000000000000000000000000000000000000
+        00000000000055550003000000004C330028523302E2553603FF4F3303FA5033
+        03FF503303FF503303FF503303FF503303FF503303FF503303FF503303FF5033
+        03FF503303FF503303FF503303FF503303FF503303FF503303FF503303FF5033
+        03FF503303FF503303FF503303FF503303FF503303FF503303FF503303FF5033
+        03FF503303FF4F3203FB543503FF523403E84B30002F00000000555500030000
+        00000000000000000000000000000000000000000000000000007F0000020000
+        00004C33001E523303E2543503FF503203FB503303FF503303FF503303FF5033
+        03FF503303FF513404FF523506FF533607FF533607FF523506FF513405FF5134
+        04FF513404FF513405FF523506FF533607FF533607FF523506FF513404FF5033
+        03FF503303FF503303FF503303FF503303FF503303FF503303FF503303FF5033
+        03FF503203FB533503FF523402E94B300025000000007F000002000000000000
+        000000000000000000000000000000000001555500034C33000A513302CF5536
+        03FF503203FB503303FF503303FF503303FF503304FF523606FF523505FF4D2F
+        00FF472800FF442400FF442500FF472800FF4A2C00FF4C2F00FF4C2E00FF4A2B
+        00FF472800FF442500FF442500FF482900FF4E3000FF523606FF523506FF5033
+        03FF503303FF503303FF503303FF503303FF523504FF523504FF513403FF4E32
+        03FC543503FF513302D75B36000E7F0000020000000100000000000000000000
+        00000000000055550003000000004F3303A0563703FF4F3203FB503303FF5033
+        03FF503303FF523505FF503303FF462700FF482900FF5E4319FF7E6948FF9E8E
+        76FFB8AC9BFFCAC1B5FFD5CEC4FFDBD5CDFFDBD5CCFFD4CDC3FFC8BFB2FFB4A8
+        96FF99886FFF78613FFF583C11FF462700FF472900FF523505FF513404FF5033
+        03FF513403FF513403FF492A00FF492A00FF4C2F01FF513403FF4F3103FB5637
+        03FF4F3303AA0000000055550003000000000000000000000000555500030000
+        00004D310352553603FF503203FB503303FF503303FF503303FF523505FF4A2C
+        00FF4E3004FF887457FFC9C0B4FFF3F1EFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFECE9E5FFBDB2A4FF7A6444FF482A00FF4B2E00FF523504FF513403FF4929
+        00FF968721FFB4AC2DFF60460AFF4D2F02FF513403FF503203FB563603FF5031
+        025C000000005555000300000000000000017F000002553F000C503302E15234
+        03FE4F3203FD503303FF503303FF523505FF4A2B00FF6A512DFFD7D1C8FFFFFF
+        FFFFFFFFFFFFFFFFFFFFFEFDFDFFFCFCFBFFFCFCFBFFFDFCFCFFFDFDFCFFFDFD
+        FDFFFDFDFDFFFDFDFCFFFDFCFCFFFBFBFAFFFAF9F8FFFEFEFDFFFFFFFFFFFFFF
+        FFFFFFFFFFFFC5BBAEFF60451FFF4E3104FF492A01FF9D9024FFE1E341FFEDF0
+        45FFA09325FF452600FF523604FF503203FD523403FD503303E84B3C00110000
+        0002000000013F3F0004000000004F330277563703FF503203FB503303FF5033
+        03FF513404FF4E3002FF5A3E15FFEDEAE5FFFFFFFFFFFCFBFAFFFDFDFCFFFEFE
+        FEFFFEFEFEFFFDFDFDFFFDFCFCFFFCFCFBFFFCFCFBFFFCFCFBFFFCFCFBFFFCFC
+        FBFFFCFCFBFFFFFFFFFFFFFFFFFFFFFFFFFFF0EEEAFFE8E4DFFFF1EFEBFFFFFF
+        FFFFA29278FF3F1F00FFA09328FFE2E441FFDADB3EFFD3D13AFF6A520EFF4C2E
+        01FF513403FF503303FF503203FB563703FF4F320183000000003F3F00040000
+        00014E3A000D503202E8523403FE503203FD503303FF503303FF523505FF4829
+        00FF78613DFFFFFFFFFFFCFCFBFFFEFDFDFFFCFCFBFFFDFDFDFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF4F3
+        EFFFA89986FF674D31FF4E300EFF4A2B06FF513310FF6D5432FF4C2D08FF8877
+        19FFE3E542FFDADA3EFFD5D43BFF6C540FFF482800FF523503FF503303FF5033
+        03FF503303FE513403FE503302EE5538001200000000000000005033025F5637
+        03FF4F3203FC503303FF503303FF503303FF523505FF482900FF765F3BFFFDFD
+        FCFFFCFCFBFFFFFFFFFFFFFFFFFFFFFFFFFFF8F7F7FFE4DFDAFFCFC7BDFFBEB3
+        A4FFB1A491FFAA9B86FFA89A84FFB1A490FFB7AB97FF604521FF432300FF7C68
+        0FFFA79C25FFB1A82AFF9E9121FF695206FF4C2D00FFBDB631FFEAEE44FFD3D1
+        3AFF6B540FFF482900FF533604FF503303FF503303FF503303FF503303FF5032
+        03FB563703FF4F32026A0000000000000000503202BB553603FE4F3203FC5033
+        03FF503303FF503303FF523506FF482A00FF755E39FFFFFFFFFFFFFFFFFFE9E5
+        E1FFB1A492FF7C6645FF573A0FFF442400FF3C1B00FF3C1A00FF3E1D00FF3F1F
+        00FF402000FF472800FF3E1D00FF684F08FFD1CF3CFFE5E843FFC7C336FFBBB5
+        31FFD1CF3AFFE4E643FFCAC737FFD4D33BFF9C8F24FF654B0CFF492A00FF5336
+        04FF503303FF503303FF503303FF503303FF503303FF4F3203FC543603FE5032
+        02C5000000004C33001E4F3203F3513403FF503303FE503303FF503303FF5033
+        03FF523506FF472800FF7B6542FFF2F0EDFF8F7C62FF482900FF3E1D00FF583B
+        10FF7D6745FF9F8F76FFB9AD9CFFCBC3B6FFD6CFC5FFDCD6CEFFD8D2C8FF5E42
+        1CFF664D0CFFE1E342FFC1BC32FF644B0CFF4B2C01FF492A00FF4E3002FF7D69
+        16FFDCDD3EFFC2BD33FF462600FF4B2D01FF533604FF503303FF503303FF5033
+        03FF503303FF503303FF503303FF503303FF513303FF503303F84E3400274F31
+        025D533503FF4F3203FD503303FF503303FF503303FF503303FF513404FF4C2E
+        01FF674E24FF60451DFF442400FF907E62FFD2CBC1FFF7F6F6FFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCBC3B5FF412100FFC0BB34FFCAC7
+        37FF4E3002FF4A2B00FF523503FF523504FF513403FF432300FF6E5710FFE4E6
+        41FF8C7B1CFF482900FF523604FF503303FF503303FF503303FF503303FF5033
+        03FF503303FF503303FF4F3203FC543603FF503302694F33039A543603FF4F32
+        03FC503303FF503303FF503303FF503303FF503303FF533605FF462700FF6E55
+        32FFE4DFD8FFFFFFFFFFFFFFFFFFFFFFFFFFFDFDFDFFFCFCFBFFFCFCFBFFFDFC
+        FCFFFAFAF9FFFDFDFCFF846F54FF5D4201FFE6E945FF7B6615FF472700FF5438
+        05FF503303FF503303FF503303FF543805FF442400FFAFA52BFFC8C536FF4C2D
+        01FF513403FF503303FF503303FF503303FF503303FF503303FF503303FF5033
+        03FF4F3203FC543603FF4F3203A6503302C7533503FF4F3203FD503303FF5033
+        03FF503303FF503303FF513404FF4D3002FF5D4219FFF3F1EFFFFFFFFFFFFBFB
+        FAFFFDFDFCFFFEFEFEFFFEFEFEFFFEFEFDFFFDFDFCFFFCFCFBFFFCFBFAFFFCFC
+        FBFF694F31FF7A660DFFDEE041FF5E4309FF4E3002FF513403FF503303FF5033
+        03FF503303FF523604FF472800FF86741AFFDBDB3EFF593E07FF4D3002FF5134
+        03FF503303FF503303FF503303FF503303FF503303FF503303FF503303FD5334
+        03FF503302D2503303E5523403FF503303FE503303FF503303FF503303FF5033
+        03FF523506FF482900FF78613DFFFFFFFFFFFDFCFCFFFEFEFDFFFCFCFBFFFDFD
+        FCFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF6D5437FF7A66
+        0DFFDEDF41FF5C4108FF4E3002FF513403FF503303FF503303FF503303FF5235
+        04FF482800FF847119FFDBDC3EFF5B4008FF4D2F02FF513403FF503303FF5033
+        03FF503303FF503303FF503303FF503303FF503303FE513403FF503303EF5032
+        03F7513303FF503303FF503303FF503303FF503303FF503303FF523506FF482A
+        00FF765F3BFFFDFDFDFFFCFCFBFFFFFFFFFFFFFFFFFFFFFFFFFFFDFDFDFFEBE7
+        E4FFD7D1C9FFC7BEB1FFBAAF9EFFB6AA98FF674D2BFF664D07FFE4E743FF7660
+        13FF482900FF543704FF503303FF503303FF503303FF543804FF442400FFA59A
+        27FFCECC38FF4E3002FF503303FF503303FF503303FF503303FF503303FF5033
+        03FF503303FF503303FF503303FF503303FF503303FE503303FF503303FF5033
+        03FF503303FF503303FF503303FF503303FF523506FF482A00FF745D39FFFFFF
+        FFFFFFFFFFFFECE9E5FFB6AA9AFF826D4FFF5D4118FF482900FF3E1E00FF3D1C
+        00FF3E1D00FF3F1E00FF472800FF4B2C00FFC5C134FFC2BE33FF492A01FF4C2E
+        01FF533604FF533604FF533604FF462600FF61470AFFE2E440FF978921FF4627
+        00FF533604FF503303FF503303FF503303FF503303FF503303FF503303FF5033
+        03FF503303FF503303FF503303FF503303FF503303FF503303FF503303FF5033
+        03FF503303FF503303FF523506FF472800FF7B6542FFF0EEEBFF8F7C62FF492B
+        00FF3E1D00FF573A0EFF7B6542FF9D8C73FFB7AB99FFC9C0B3FFD3CCC2FFD8D1
+        C8FFD0C8BCFF573A13FF68500DFFE6E944FFB4AC2DFF593D07FF472800FF4727
+        00FF482900FF6A520FFFD4D23BFFC9C536FF533604FF4F3102FF513403FF5033
+        03FF503303FF503303FF503303FF503303FF503303FF503303FF503303FF5033
+        03FF503303FF4F3203F6513303FF503303FF503303FF503303FF503303FF5033
+        03FF513404FF4C2E01FF674D24FF5E431AFF452600FF917F64FFD3CBC1FFF7F6
+        F6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC9C0
+        B1FF3F1E00FF735D13FFDCDC41FFDEE040FFB7B02FFFAAA02AFFC0BA33FFE7EA
+        44FFC4BF36FF5C4108FF4C2E01FF513503FF503303FF503303FF503303FF5033
+        03FF503303FF503303FF503303FF503303FF503303FF503303FF503303FE5033
+        02E4523403FF503303FE503303FF503303FF503303FF503303FF503303FF5336
+        05FF462700FF725B39FFE6E2DCFFFFFFFFFFFFFFFFFFFFFFFFFFFDFDFDFFFCFC
+        FBFFFCFCFBFFFDFCFCFFFDFDFCFFFDFDFCFFFBFBFAFFFFFFFFFFC0B6A3FF492A
+        08FF4D2F00FF90801BFFBBB431FFC4BF35FFB3AB2CFF7C680FFF442400FF4D2E
+        01FF523504FF503303FF503303FF503303FF503303FF503303FF503303FF5033
+        03FF503303FF503303FF503303FE513303FF503203EE503202C5533503FF4F32
+        03FD503303FF503303FF503303FF503303FF513404FF4D2F01FF5F451DFFF7F5
+        F3FFFFFFFFFFFCFBFAFFFDFDFCFFFEFEFEFFFEFEFEFFFEFDFDFFFDFCFCFFFCFC
+        FBFFFCFCFBFFFCFCFBFFFCFCFBFFFAF9F8FFFFFFFFFFE1DCD2FF87735AFF5133
+        12FF442400FF442400FF462601FF614628FF9D8D75FF593D0EFF4E3001FF5133
+        03FF503303FF503303FF503303FF503303FF503303FF503303FF503303FF5033
+        03FF503303FD533403FF4F3302D04F320397543603FF4F3203FC503303FF5033
+        03FF503303FF503303FF523505FF472900FF78623DFFFFFFFFFFFCFCFCFFFEFD
+        FDFFFCFCFBFFFEFDFDFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF6F5F1FFDBD5CCFFD3CC
+        C2FFE2DDD6FFFFFFFEFFF6F5F3FF55390BFF4F3100FF513304FF503303FF5033
+        03FF503303FF503303FF503303FF503303FF503303FF503303FF4F3203FC5435
+        03FF4F3303A34F33025A533503FF4F3203FD503303FF503303FF503303FF5033
+        03FF523505FF482A00FF755F3AFFFDFDFCFFFCFCFBFFFFFFFFFFFFFFFFFFFFFF
+        FFFFF8F7F7FFE5E1DCFFD2CAC0FFC1B6A7FFB5A997FFAFA28EFFB0A28FFFB6AA
+        98FFC3B9ABFFD3CBC2FFE6E2DEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDFD
+        FDFFE8E4DFFF55390BFF4F3100FF513304FF503303FF503303FF503303FF5033
+        03FF503303FF503303FF503303FF503303FF4F3203FC543503FF50320266552F
+        001B503203F2513403FF503303FE503303FF503303FF503303FF523505FF482A
+        00FF745D38FFFFFFFFFFFFFFFFFFE3DFD9FFAA9C89FF77603EFF55380CFF4424
+        00FF3E1E00FF3F1F00FF422200FF442400FF442400FF422100FF3F1E00FF3F1E
+        00FF462700FF5A3E13FF7F6A4BFFB5A998FFECE9E5FFFFFFFFFFEDEAE6FF5438
+        0AFF4F3100FF513304FF503303FF503303FF503303FF503303FF503303FF5033
+        03FF503303FF503303FF513403FF503203F74D31002400000000503302B75536
+        03FE4F3203FC503303FF503303FF503303FF523506FF472800FF7B6542FFEBE8
+        E3FF826E51FF432400FF422200FF62481FFF897557FFAB9D89FFC5BBAEFFD6D0
+        C6FFE1DCD5FFE5E1DAFFE5E0DAFFE0DBD4FFD4CDC4FFC1B7A8FFA69680FF816C
+        4BFF593D12FF3E1D00FF4B2C02FFA09078FFE7E3DEFF583C0FFF4E3000FF5134
+        04FF503303FF503303FF503303FF503303FF503303FF503303FF503303FF4F33
+        03FC553603FE503302C100000000000000004F33025A563703FF4F3203FC5033
+        03FF503303FF503303FF513404FF4C2E01FF654C22FF593D13FF4D2F07FFA191
+        7AFFDFDAD3FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF9F8F8FFD2CB
+        C1FF8B775BFF412100FF634922FF593D0FFF4E3101FF503303FF503303FF5033
+        03FF503303FF503303FF503303FF503303FF503303FF4F3203FC563703FF5032
+        02650000000000000001452E000B503302E5523403FE503203FD503303FF5033
+        03FF503303FF533605FF452600FF7A6343FFEFECE8FFFFFFFFFFFFFFFFFFFFFF
+        FFFFFDFCFCFFFCFCFBFFFDFCFCFFFDFDFCFFFDFDFDFFFEFDFDFFFEFDFDFFFDFD
+        FDFFFDFDFCFFFCFCFBFFFCFCFBFFFDFDFCFFFFFFFFFFFFFFFFFFFFFFFFFFD8D2
+        C9FF5C4019FF4B2C00FF523505FF503303FF503303FF503303FF503303FF5033
+        03FF503303FF503303FF503303FD523403FE503303EB4F2F0010000000003F3F
+        00040000000051330271563703FF503203FB503303FF503303FF513404FF4D2F
+        01FF60451DFFF6F5F3FFFFFFFFFFFBFBFAFFFDFDFDFFFFFFFEFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFEFEFEFFFDFDFCFFFBFAF9FFFFFFFFFFD4CDC3FF4C2E
+        03FF513404FF503303FF503303FF503303FF503303FF503303FF503303FF5033
+        03FF503203FB563703FF4F33027D000000003F3F0004000000017F0000024C33
+        000A503203DD533503FE4F3303FD503303FF523505FF4A2C00FF6D552DFFFFFF
+        FFFFFCFCFBFFFDFDFCFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFEFFFBFAF9FFFEFEFDFFEBE8E3FF513406FF503202FF5133
+        03FF503303FF503303FF503303FF503303FF503303FF503203FD523403FE5033
+        03E44836000E00000002000000010000000055550003000000004E33034B5536
+        03FF503203FB503303FF503303FF523505FF492B01FFAFA18DFFFFFFFFFFFFFF
+        FFFFFEFEFEFFFCFCFBFFFDFCFCFFFDFDFDFFFEFEFEFFFEFEFEFFFFFFFEFFFFFF
+        FFFFFFFFFFFFFFFFFEFFFEFEFEFFFEFEFDFFFDFDFDFFFCFCFBFFFDFCFBFFFFFF
+        FFFFFFFFFFFFFDFCFCFF877456FF482900FF523506FF503303FF503303FF5033
+        03FF503303FF503303FF503303FF503203FB563603FF51330355000000005555
+        000300000000000000000000000055550003000000004E320198573703FF4F33
+        03FA503303FF503303FF503304FF492A00FF8B775BFFDBD4CDFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFAF9F9FFC9C0B5FF735B
+        3AFF472800FF523504FF503303FF503303FF503303FF503303FF503303FF5033
+        03FF4F3203FB563703FF4F3203A3000000003F3F000400000000000000000000
+        000000000000000000015555000348240007513302C8553603FF4F3203FB5033
+        03FF503303FF523505FF462700FF4E3002FF735B38FF9F8F78FFC4BAADFFDFD9
+        D2FFEFEDEAFFF9F8F8FFFEFEFFFFFFFFFFFFFFFFFFFFFDFDFDFFF7F5F4FFEBE8
+        E5FFD9D2CAFFBCB1A1FF948268FF684E28FF482A00FF492A00FF523605FF5033
+        03FF503303FF503303FF503303FF503303FF503303FF503203FB543603FF5033
+        02D1452E000B7F7F000200000001000000000000000000000000000000000000
+        00007F0000020000000055350018523402DC543603FF4F3203FB503303FF5033
+        03FF533606FF513303FF492A00FF442500FF462700FF4E3102FF593D11FF6349
+        20FF6B522BFF6E5630FF6E562FFF695029FF61461CFF563A0DFF4C2E00FF4526
+        00FF452500FF4B2D00FF523505FF523505FF503303FF503303FF503303FF5033
+        03FF503303FF503303FF503203FB543503FF523403E35231001F000000007F00
+        0002000000000000000000000000000000000000000000000000000000007F00
+        0002000000004D360021523403DB553603FF4F3303FA503303FF503303FF5033
+        03FF523505FF533607FF523606FF503303FF4E3000FF4C2E00FF4A2C00FF492B
+        00FF4A2B00FF4B2C00FF4C2E00FF4E3100FF513404FF533606FF533607FF5134
+        05FF503303FF503303FF503303FF503303FF503303FF503303FF503303FF4F33
+        03FA553603FF523303E24C330028000000005555000300000000000000000000
+        0000000000000000000000000000000000000000000000000000555500030000
+        00004E31001A523302C6573703FF4F3203FC4F3203FD503303FF503303FF5033
+        03FF503303FF503303FF513404FF513405FF513505FF523505FF523505FF5134
+        05FF513404FF513404FF503303FF503303FF503303FF503303FF503303FF5033
+        03FF503303FF503303FF503303FF4F3303FD4F3203FC563703FF523402CD4F2F
+        0020000000005555000300000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000055550003000000004824
+        000751340396543603FF533503FF503203FB4F3303FD503303FF503303FF5033
+        03FF503303FF503303FF503303FF503303FF503303FF503303FF503303FF5033
+        03FF503303FF503303FF503303FF503303FF503303FF503303FF503303FF5033
+        03FE503203FB523403FF553603FF5233039E452E000B00000000555500030000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000007F00000200000000000000005033
+        034F533402D7563703FF523403FF4F3203FC4F3203FC503303FE503303FF5033
+        03FF503303FF503303FF503303FF503303FF503303FF503303FF503303FF5033
+        03FF503303FF503303FF503303FE4F3203FC4F3203FC523403FF563703FF5234
+        02DC5032025600000000000000007F0000020000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000015555000300000000452E000B5235
+        0273523403DF563603FF553603FF513403FF4F3203FD4F3203FC4F3303FD5033
+        03FE503303FF503303FF503303FF503303FF503303FE4F3303FD4F3203FC4F33
+        03FD513403FF553603FF563603FF523303E3523502784836000E000000005555
+        0003000000010000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000555500030000000000000000552A000C5334
+        025C523402B4513303EF533503FF543603FF533503FF523403FF513303FF5033
+        03FF503303FF513303FF523403FF533503FF543603FF533503FF513403F05133
+        02B8523502605533000F00000000000000005555000300000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        00000000000000000000000000013F3F00040000000000000000000000005533
+        001E5233025A51330396503402C4503303E3503303F5503303FE503303FE4F32
+        03F6503303E4513302C6523403985234025D5536002100000000000000000000
+        00003F3F00040000000100000000000000000000000000000000000000000000
+        00000000000000000000000000000000000000000000}
+      Proportional = True
+      Stretch = True
+      Transparent = True
+      ExplicitLeft = 1
+      ExplicitTop = 1
+    end
+    object pHeaderBar: TPanel
+      Left = 52
+      Top = 0
+      Width = 965
+      Height = 52
+      Align = alClient
+      BevelOuter = bvNone
+      Color = clNone
+      Padding.Right = 20
+      TabOrder = 0
+      object lbFile: TLabel
+        AlignWithMargins = True
+        Left = 164
+        Top = 0
+        Width = 29
+        Height = 52
+        Margins.Left = 50
+        Margins.Top = 0
+        Margins.Right = 0
+        Margins.Bottom = 0
+        Align = alLeft
+        Caption = 'File'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWhite
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Layout = tlCenter
+        ExplicitHeight = 19
+      end
+      object lbApp: TLabel
+        Left = 0
+        Top = 0
+        Width = 114
+        Height = 52
+        Align = alLeft
+        Caption = 'Firebird Trace'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWhite
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Layout = tlCenter
+        ExplicitHeight = 19
+      end
+      object lbOpen: TLabel
+        AlignWithMargins = True
+        Left = 213
+        Top = 0
+        Width = 72
+        Height = 52
+        Margins.Left = 20
+        Margins.Top = 0
+        Margins.Right = 0
+        Margins.Bottom = 0
+        Align = alLeft
+        Caption = 'Open log'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWhite
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Layout = tlCenter
+        ExplicitHeight = 19
+      end
+      object lbExit: TLabel
+        AlignWithMargins = True
+        Left = 913
+        Top = 0
+        Width = 32
+        Height = 52
+        Margins.Left = 20
+        Margins.Top = 0
+        Margins.Right = 0
+        Margins.Bottom = 0
+        Align = alRight
+        Caption = 'Exit'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWhite
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Layout = tlCenter
+        ExplicitHeight = 19
       end
     end
   end
   object odMain: TOpenDialog
-    Left = 128
-    Top = 432
+    Left = 848
+    Top = 368
+  end
+  object PopupMenuFile: TPopupMenu
+    Left = 928
+    Top = 368
+    object miOpen: TMenuItem
+      Caption = 'Open file'
+      OnClick = miOpenClick
+    end
   end
 end
